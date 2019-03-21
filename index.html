@@ -1,0 +1,20 @@
+	void Backtrack(int i) {
+		if(i == cityNumber - 1) {
+			if(check(i)) {
+				bestlength = currentlength + city[currentpath[i-1]][currentpath[i]] + city[currentpath[i]][0];
+				for(int j = 0; j < cityNumber; j++) {
+					bestpath[j] = currentpath[j];
+				}
+			}
+		}else {
+			for(int next = i; next < cityNumber; next++) {
+				if(check(next)) {
+					swap(next, i);
+					currentlength = currentlength + city[currentpath[i-1]][currentpath[i]];
+					Backtrack(i + 1);
+					currentlength = currentlength - city[currentpath[i-1]][currentpath[i]];
+					swap(next, i);
+				}
+			}
+		}
+	}
